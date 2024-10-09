@@ -9,3 +9,5 @@ export const dogSchema = z.object({
 });
 
 export type Dog = z.infer<typeof dogSchema>;
+
+export type TactiveTab = "all" | "favorited" | "unfavorited" | "create";
