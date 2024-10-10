@@ -1,10 +1,22 @@
-import { useState } from "react";
-import { dogPictures } from "../dog-pictures";
+import { useState } from 'react';
+import { dogPictures } from '../dog-pictures';
 
+const defaultImage = dogPictures.BlueHeeler;
 export const CreateDogForm = () =>
   // no props allowed
+  // data that would have been passed down (createDog and isLoading);
   {
-    const [selectedImage, setSelectedImage] = useState(dogPictures.BlueHeeler);
+    const [selectedImage, setSelectedImage] = useState(defaultImage);
+    const [descriptionInput, setDescriptionInput] = useState('');
+    const [nameInput, setNameInput] = useState('');
+
+    const isValidName = nameInput.length > 3;
+    const isValidDescription = descriptionInput.length > 3;
+    const isValidDog = isValidName && isValidDescription;
+
+    const resetDogForm = () => {
+      setNameInput(''), setDescriptionInput(''), setSelectedImage(defaultImage);
+    };
 
     return (
       <form
@@ -16,15 +28,33 @@ export const CreateDogForm = () =>
       >
         <h4>Create a New Dog</h4>
         <label htmlFor="name">Dog Name</label>
-        <input type="text" />
+        <input
+          name="name"
+          id="name"
+          type="text"
+          disabled={isLoading}
+          value={nameInput}
+          onChange={(e) => setNameInput(e.target.value)}
+        />
         <label htmlFor="description">Dog Description</label>
-        <textarea name="" id="" cols={80} rows={10}></textarea>
+        <textarea
+          name="description"
+          id="description"
+          cols={80}
+          rows={10}
+          disabled={isLoading}
+          value={descriptionInput}
+          onChange={(e) => setDescriptionInput(e.target.value)}
+        ></textarea>
         <label htmlFor="picture">Select an Image</label>
         <select
-          id=""
+          name="picture"
+          id="picture"
+          value={selectedImage}
           onChange={(e) => {
             setSelectedImage(e.target.value);
           }}
+          disabled={isLoading}
         >
           {Object.entries(dogPictures).map(([label, pictureValue]) => {
             return (
@@ -34,7 +64,11 @@ export const CreateDogForm = () =>
             );
           })}
         </select>
-        <input type="submit" value="submit" />
+        <input
+          type="submit"
+          value="submit"
+          disabled={isLoading || !isValidDog}
+        />
       </form>
     );
   };
