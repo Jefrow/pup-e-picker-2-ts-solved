@@ -1,8 +1,10 @@
 import { Section } from './Components/Section';
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Requests } from './api';
 import { toast } from 'react-hot-toast';
 import { Dog, TactiveTab } from './types';
+import { CreateDogForm } from './Components/CreateDogForm';
+import { Dogs } from './Components/Dogs';
 
 type DogContextType = {
   allDogs: Dog[];
@@ -12,6 +14,16 @@ type DogContextType = {
   createDog: (dog: Omit<Dog, 'id'>) => void;
   deleteDog: (dog: Dog) => Promise<unknown>;
   updateDog: (dog: Pick<Dog, 'id' | 'isFavorite'>) => Promise<unknown>;
+};
+
+const DogContext = createContext<DogContextType | undefined>(undefined);
+
+export const useDogContext = () => {
+  const context = useContext(DogContext);
+  if (!context) {
+    throw new Error('useDogContext must be used within a DogProvider');
+  }
+  return context;
 };
 
 export function App() {
@@ -68,11 +80,17 @@ export function App() {
   };
 
   return (
-    <div className="App" style={{ backgroundColor: 'skyblue' }}>
-      <header>
-        <h1>pup-e-picker (Functional)</h1>
-      </header>
-      <Section label={'Dogs: '}></Section>
-    </div>
+    <DogContext.Provider
+      value={{ allDogs, activeTab, isLoading, setActiveTab, createDog }}
+    >
+      <div className="App" style={{ backgroundColor: 'skyblue' }}>
+        <header>
+          <h1>pup-e-picker (Functional)</h1>
+        </header>
+        <Section label={'Dogs: '}>
+          {activeTab === 'create' ? <CreateDogForm /> : <Dogs />}
+        </Section>
+      </div>
+    </DogContext.Provider>
   );
 }
