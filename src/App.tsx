@@ -1,19 +1,19 @@
-import { Section } from './Components/Section';
-import { createContext, useEffect, useState } from 'react';
-import { Requests } from './api';
-import { toast } from 'react-hot-toast';
-import { Dog, TactiveTab } from './types';
-import { CreateDogForm } from './Components/CreateDogForm';
-import { Dogs } from './Components/Dogs';
+import { Section } from "./Components/Section";
+import { createContext, useEffect, useState } from "react";
+import { Requests } from "./api";
+import { toast } from "react-hot-toast";
+import { Dog, TactiveTab } from "./types";
+import { CreateDogForm } from "./Components/CreateDogForm";
+import { Dogs } from "./Components/Dogs";
 
 type DogContextType = {
   allDogs: Dog[];
   activeTab: TactiveTab;
   isLoading: boolean;
   setActiveTab: (tab: TactiveTab) => void;
-  createDog: (dog: Omit<Dog, 'id'>) => void;
+  createDog: (dog: Omit<Dog, "id">) => void;
   deleteDog: (dog: Dog) => Promise<unknown>;
-  updateDog: (dog: Pick<Dog, 'id' | 'isFavorite'>) => Promise<unknown>;
+  updateDog: (dog: Pick<Dog, "id" | "isFavorite">) => Promise<unknown>;
 };
 
 const DogContext = createContext<DogContextType | undefined>(undefined);
@@ -21,14 +21,14 @@ const DogContext = createContext<DogContextType | undefined>(undefined);
 export const useDogContext = () => {
   const context = useContext(DogContext);
   if (!context) {
-    throw new Error('useDogContext must be used within a DogProvider');
+    throw new Error("useDogContext must be used within a DogProvider");
   }
   return context;
 };
 
 export function App() {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
-  const [activeTab, setActiveTab] = useState<TactiveTab>('all');
+  const [activeTab, setActiveTab] = useState<TactiveTab>("all");
   const [isLoading, setIsLoading] = useState(false);
 
   const refetchData = () => {
@@ -46,26 +46,24 @@ export function App() {
   };
 
   useEffect(() => {
-    refetchData().catch(() => {
-      toast.error('Failed to fetch dogs!');
-    });
+    refetchData();
   }, []);
 
-  const createDog = (dog: Omit<Dog, 'id'>): Promise<unknown> => {
-    return handleRequest(Requests.postDog(dog), 'You have created a dog!');
+  const createDog = (dog: Omit<Dog, "id">): Promise<unknown> => {
+    return handleRequest(Requests.postDog(dog), "You have created a dog!");
   };
 
   const deleteDog = (dog: Dog): Promise<unknown> => {
     return handleRequest(
       Requests.deleteDogRequest(dog),
-      'You have deleted a dog!'
+      "You have deleted a dog!"
     );
   };
 
-  const updateDog = (dog: Pick<Dog, 'id' | 'isFavorite'>): Promise<unknown> => {
+  const updateDog = (dog: Pick<Dog, "id" | "isFavorite">): Promise<unknown> => {
     return handleRequest(
       Requests.patchFavoriteForDog(dog),
-      dog.isFavorite ? 'You have liked a dog' : 'You have un-liked a dog'
+      dog.isFavorite ? "You have liked a dog" : "You have un-liked a dog"
     );
   };
 
@@ -83,12 +81,12 @@ export function App() {
     <DogContext.Provider
       value={{ allDogs, activeTab, isLoading, setActiveTab, createDog }}
     >
-      <div className="App" style={{ backgroundColor: 'skyblue' }}>
+      <div className="App" style={{ backgroundColor: "skyblue" }}>
         <header>
           <h1>pup-e-picker (Functional)</h1>
         </header>
-        <Section label={'Dogs: '}>
-          {activeTab === 'create' ? <CreateDogForm /> : <Dogs />}
+        <Section label={"Dogs: "}>
+          {activeTab === "create" ? <CreateDogForm /> : <Dogs />}
         </Section>
       </div>
     </DogContext.Provider>
