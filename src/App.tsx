@@ -1,5 +1,5 @@
 import { Section } from "./Components/Section";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import { Requests } from "./api";
 import { toast } from "react-hot-toast";
 import { Dog, TactiveTab } from "./types";
@@ -11,9 +11,10 @@ type DogContextType = {
   activeTab: TactiveTab;
   isLoading: boolean;
   setActiveTab: (tab: TactiveTab) => void;
-  createDog: (dog: Omit<Dog, "id">) => void;
+  createDog: (dog: Omit<Dog, "id">) => Promise<unknown>;
   deleteDog: (dog: Dog) => Promise<unknown>;
   updateDog: (dog: Pick<Dog, "id" | "isFavorite">) => Promise<unknown>;
+  dogList: Record<TactiveTab, Dog[]>;
 };
 
 const DogContext = createContext<DogContextType | undefined>(undefined);
@@ -79,7 +80,16 @@ export function App() {
 
   return (
     <DogContext.Provider
-      value={{ allDogs, activeTab, isLoading, setActiveTab, createDog }}
+      value={{
+        allDogs,
+        activeTab,
+        isLoading,
+        setActiveTab,
+        createDog,
+        deleteDog,
+        updateDog,
+        dogList,
+      }}
     >
       <div className="App" style={{ backgroundColor: "skyblue" }}>
         <header>
