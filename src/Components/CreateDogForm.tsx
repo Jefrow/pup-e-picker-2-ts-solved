@@ -1,27 +1,25 @@
-import { useState } from "react";
-import { dogPictures } from "../dog-pictures";
-import { useDogContext } from "../App";
-import { toast } from "react-hot-toast";
+import { useState } from 'react';
+import { dogPictures } from '../dog-pictures';
+import { useDogContext } from '../context';
+import { toast } from 'react-hot-toast';
 
 const defaultImage = dogPictures.BlueHeeler;
 export const CreateDogForm = () =>
   // no props allowed
   // data that would have been passed down (createDog and isLoading);
   {
-    const { isLoading } = useDogContext();
+    const { isLoading, createDog } = useDogContext();
 
     const [selectedImage, setSelectedImage] = useState(defaultImage);
-    const [descriptionInput, setDescriptionInput] = useState("");
-    const [nameInput, setNameInput] = useState("");
+    const [descriptionInput, setDescriptionInput] = useState('');
+    const [nameInput, setNameInput] = useState('');
 
     const isValidName = nameInput.length > 3;
     const isValidDescription = descriptionInput.length > 3;
     const isValidDog = isValidName && isValidDescription;
 
-    const { createDog } = useDogContext();
-
     const resetDogForm = () => {
-      setNameInput(""), setDescriptionInput(""), setSelectedImage(defaultImage);
+      setNameInput(''), setDescriptionInput(''), setSelectedImage(defaultImage);
     };
 
     return (
@@ -40,7 +38,7 @@ export const CreateDogForm = () =>
               resetDogForm();
             })
             .catch(() =>
-              toast.error("There is no connection with the server!")
+              toast.error('There is no connection with the server!')
             );
         }}
       >

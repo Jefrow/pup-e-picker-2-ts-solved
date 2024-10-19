@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
+import { TactiveTab } from '../types';
+import { useDogContext } from '../context';
 
 export const Section = ({
   label,
@@ -8,6 +10,13 @@ export const Section = ({
   label: string;
   children: ReactNode;
 }) => {
+  const { setActiveTab, dogList, activeTab } = useDogContext();
+
+  const toggleTab = (tab: TactiveTab) => {
+    const tabValue = activeTab === tab ? 'all' : tab;
+    setActiveTab(tabValue);
+  };
+
   return (
     <section id="main-section">
       <div className="container-header">
@@ -15,27 +24,29 @@ export const Section = ({
         <div className="selectors">
           {/* This should display the favorited count */}
           <div
-            className={`selector ${"active"}`}
+            className={`selector ${activeTab === 'favorited' ? 'active' : ''}`}
             onClick={() => {
-              alert("click favorited");
+              toggleTab('favorited');
             }}
           >
-            favorited ( {0} )
+            favorited ( {dogList.favorited.length} )
           </div>
 
           {/* This should display the unfavorited count */}
           <div
-            className={`selector ${""}`}
+            className={`selector ${
+              activeTab === 'unfavorited' ? 'active' : ''
+            }`}
             onClick={() => {
-              alert("click unfavorited");
+              toggleTab('unfavorited');
             }}
           >
-            unfavorited ( {10} )
+            unfavorited ( {dogList.unfavorited.length} )
           </div>
           <div
-            className={`selector ${""}`}
+            className={`selector ${activeTab === 'create' ? 'active' : ''}`}
             onClick={() => {
-              alert("clicked create dog");
+              toggleTab('create');
             }}
           >
             create dog
