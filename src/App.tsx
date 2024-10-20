@@ -1,15 +1,15 @@
-import { Section } from './Components/Section';
-import { useEffect, useState } from 'react';
-import { Requests } from './api';
-import { toast } from 'react-hot-toast';
-import { Dog, TactiveTab } from './types';
-import { CreateDogForm } from './Components/CreateDogForm';
-import { Dogs } from './Components/Dogs';
-import { DogContext } from './context';
+import { Section } from "./Components/Section";
+import { useEffect, useState } from "react";
+import { Requests } from "./api";
+import { toast } from "react-hot-toast";
+import { Dog, TactiveTab } from "./types";
+import { CreateDogForm } from "./Components/CreateDogForm";
+import { Dogs } from "./Components/Dogs";
+import { DogContext } from "./context";
 
 export function App() {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
-  const [activeTab, setActiveTab] = useState<TactiveTab>('all');
+  const [activeTab, setActiveTab] = useState<TactiveTab>("all");
   const [isLoading, setIsLoading] = useState(false);
 
   const refetchData = () => {
@@ -18,40 +18,59 @@ export function App() {
     });
   };
 
-  const handleRequest = (request: Promise<unknown>, successMessage: string) => {
-    setIsLoading(true);
-    return request
-      .then(() => refetchData())
-      .then(() => toast.success(successMessage))
-      .finally(() => setIsLoading(false));
-  };
-
   useEffect(() => {
-    refetchData()
-      .then(() => {
-        console.log('Data fetched successfully');
-      })
-      .catch(() => {
-        console.log('Error fetching data:');
-      });
+    refetchData();
   }, []);
 
-  const createDog = (dog: Omit<Dog, 'id'>): Promise<unknown> => {
-    return handleRequest(Requests.postDog(dog), 'You have created a dog!');
+  const rollbackDogs = (previousState: Dog[]) => {
+    setAllDogs(previousState);
+  };
+
+  const createDog = (dog: Omit<Dog, "id">): Promise<unknown> => {
+    const prevState = [...allDogs];
+    const newDog: Dog = { ...dog, id: Date.now(), isFavorite: false };
+
+    setAllDogs([...allDogs, newDog]);
+
+    return Requests.postDog(newDog)
+      .then(() => toast.success("You have Created a dog!"))
+      .catch(() => {
+        rollbackDogs(prevState);
+        toast.error("Failed to create a new dog");
+      });
   };
 
   const deleteDog = (dog: Dog): Promise<unknown> => {
-    return handleRequest(
-      Requests.deleteDogRequest(dog),
-      'You have deleted a dog!'
-    );
+    const prevState = [...allDogs];
+    const deletedDog: Dog[] = allDogs.filter((d) => d.id !== dog.id);
+
+    setAllDogs(deletedDog);
+
+    return Requests.deleteDogRequest(dog)
+      .then(() => toast.success("Deleted a dog!"))
+      .catch(() => {
+        rollbackDogs(prevState);
+        toast.error("Failed to delete a new dog");
+      });
   };
 
-  const updateDog = (dog: Pick<Dog, 'id' | 'isFavorite'>): Promise<unknown> => {
-    return handleRequest(
-      Requests.patchFavoriteForDog(dog),
-      dog.isFavorite ? 'You have liked a dog' : 'You have un-liked a dog'
+  const updateDog = (dog: Pick<Dog, "id" | "isFavorite">): Promise<unknown> => {
+    const prevState = [...allDogs];
+    const updateDogs = allDogs.map((d) =>
+      d.id === dog.id ? { ...d, isFavorite: dog.isFavorite } : d
     );
+
+    setAllDogs(updateDogs);
+    return Requests.patchFavoriteForDog(dog)
+      .then(() =>
+        toast.success(
+          dog.isFavorite ? "You have liked a dog" : "You have unliked a dog"
+        )
+      )
+      .catch(() => {
+        rollbackDogs(prevState);
+        toast.error("Failed to update Dog");
+      });
   };
 
   const favorited = allDogs.filter((dog) => dog.isFavorite);
@@ -65,7 +84,7 @@ export function App() {
   };
 
   return (
-    <div className="App" style={{ backgroundColor: 'skyblue' }}>
+    <div className="App" style={{ backgroundColor: "skyblue" }}>
       <header>
         <h1>pup-e-picker (Functional)</h1>
       </header>
@@ -81,8 +100,8 @@ export function App() {
           dogList,
         }}
       >
-        <Section label={'Dogs: '}>
-          {activeTab === 'create' ? <CreateDogForm /> : <Dogs />}
+        <Section label={"Dogs: "}>
+          {activeTab === "create" ? <CreateDogForm /> : <Dogs />}
         </Section>
       </DogContext.Provider>
     </div>

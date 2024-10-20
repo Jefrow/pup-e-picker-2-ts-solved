@@ -8,69 +8,6 @@
       "id": 4
     },
     {
-      "name": "Alfred",
-      "image": "/assets/cowardly.png",
-      "description": "Northwest DRAM henry applications South",
-      "isFavorite": false,
-      "id": 5
-    },
-    {
-      "name": "Violette",
-      "image": "/assets/boxer.png",
-      "description": "embrace Web Southwest perspiciatis though",
-      "isFavorite": true,
-      "id": 6
-    },
-    {
-      "name": "Kenton",
-      "image": "/assets/cowardly.png",
-      "description": "Bedfordshire Human tempora Managed Electronic Directives Nissan expedite",
-      "isFavorite": true,
-      "id": 7
-    },
-    {
-      "name": "Asa",
-      "image": "/assets/dalmation.png",
-      "description": "Minivan Neither Road Movies radian",
-      "isFavorite": false,
-      "id": 8
-    },
-    {
-      "name": "Nicolas",
-      "image": "/assets/chihuahua.avif",
-      "description": "an Savings brink transmit card",
-      "isFavorite": false,
-      "id": 9
-    },
-    {
-      "name": "Elton",
-      "image": "/assets/blue-heeler.png",
-      "description": "Nihonium Electronic Nissan Metal because Computer white",
-      "isFavorite": false,
-      "id": 10
-    },
-    {
-      "name": "Dewayne",
-      "image": "/assets/dalmation.png",
-      "description": "Security override firewall Southeast apropos Usability orchid barrel",
-      "isFavorite": false,
-      "id": 11
-    },
-    {
-      "name": "Art",
-      "image": "/assets/blue-heeler.png",
-      "description": "Global ha Genderflux payment Metal pixel Money",
-      "isFavorite": true,
-      "id": 12
-    },
-    {
-      "name": "Sebastian",
-      "image": "/assets/boxer.png",
-      "description": "Associate Gasoline Savings Hybrid Developer",
-      "isFavorite": true,
-      "id": 13
-    },
-    {
       "name": "Lambert",
       "image": "/assets/chihuahua.avif",
       "description": "drive reek Marvin compress executive Coordinator Track bluetooth",
@@ -113,11 +50,11 @@
       "id": 19
     },
     {
-      "name": "sdas",
+      "name": "Bluey",
       "image": "/assets/blue-heeler.png",
-      "description": "asdawdaw",
+      "description": "Big ball of energy",
       "isFavorite": false,
-      "id": 20
+      "id": 1729379654753
     }
   ]
 }
