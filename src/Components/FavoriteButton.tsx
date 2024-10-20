@@ -1,6 +1,5 @@
 import { Icons } from "../icons";
 
-// ! Do Not Change This Component
 export const FavoriteButton = ({
   disabled,
   onClick,

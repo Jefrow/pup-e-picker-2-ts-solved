@@ -1,19 +1,18 @@
-import { ReactNode } from 'react';
-import { TactiveTab } from '../types';
-import { useDogContext } from '../context';
+import { ReactNode } from "react";
+import { TactiveTab } from "../types";
+import { useDogContext } from "../context";
 
 export const Section = ({
   label,
   children,
 }: {
-  // No more props than these two allowed
   label: string;
   children: ReactNode;
 }) => {
   const { setActiveTab, dogList, activeTab } = useDogContext();
 
   const toggleTab = (tab: TactiveTab) => {
-    const tabValue = activeTab === tab ? 'all' : tab;
+    const tabValue = activeTab === tab ? "all" : tab;
     setActiveTab(tabValue);
   };
 
@@ -22,31 +21,28 @@ export const Section = ({
       <div className="container-header">
         <div className="container-label">{label}</div>
         <div className="selectors">
-          {/* This should display the favorited count */}
           <div
-            className={`selector ${activeTab === 'favorited' ? 'active' : ''}`}
+            className={`selector ${activeTab === "favorited" ? "active" : ""}`}
             onClick={() => {
-              toggleTab('favorited');
+              toggleTab("favorited");
             }}
           >
             favorited ( {dogList.favorited.length} )
           </div>
-
-          {/* This should display the unfavorited count */}
           <div
             className={`selector ${
-              activeTab === 'unfavorited' ? 'active' : ''
+              activeTab === "unfavorited" ? "active" : ""
             }`}
             onClick={() => {
-              toggleTab('unfavorited');
+              toggleTab("unfavorited");
             }}
           >
             unfavorited ( {dogList.unfavorited.length} )
           </div>
           <div
-            className={`selector ${activeTab === 'create' ? 'active' : ''}`}
+            className={`selector ${activeTab === "create" ? "active" : ""}`}
             onClick={() => {
-              toggleTab('create');
+              toggleTab("create");
             }}
           >
             create dog
