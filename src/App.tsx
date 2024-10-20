@@ -34,9 +34,10 @@ export function App() {
 
     return request
       .then(() => toast.success(successMessage))
-      .catch(() => {
+      .catch((error) => {
         previousDogs();
         toast.error(errorMessage);
+        throw new Error(error);
       })
       .finally(() => setIsLoading(false));
   };
@@ -50,7 +51,7 @@ export function App() {
       Requests.postDog(newDog),
       "You have created a dog.",
       () => setAllDogs(prevState),
-      "Failed to create dog"
+      "There is no connnection to Server"
     );
   };
 

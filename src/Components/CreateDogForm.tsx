@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { dogPictures } from "../dog-pictures";
 import { useDogContext } from "../context";
-import { toast } from "react-hot-toast";
 
 const defaultImage = dogPictures.BlueHeeler;
 export const CreateDogForm = () => {
@@ -30,11 +29,9 @@ export const CreateDogForm = () => {
           image: selectedImage,
           description: descriptionInput,
           isFavorite: false,
-        })
-          .then(() => {
-            resetDogForm();
-          })
-          .catch(() => toast.error("There is no connection with the server!"));
+        }).then(() => {
+          resetDogForm();
+        });
       }}
     >
       <h4>Create a New Dog</h4>
