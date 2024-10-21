@@ -26,8 +26,7 @@ export function App() {
     updateUI: () => void,
     request: Promise<unknown>,
     successMessage: string,
-    previousDogs: () => void,
-    errorMessage: string
+    previousDogs: () => void
   ) => {
     setIsLoading(true);
     updateUI();
@@ -36,7 +35,6 @@ export function App() {
       .then(() => toast.success(successMessage))
       .catch((error) => {
         previousDogs();
-        toast.error(errorMessage);
         throw new Error(error);
       })
       .finally(() => setIsLoading(false));
@@ -50,8 +48,7 @@ export function App() {
       () => setAllDogs([...allDogs, newDog]),
       Requests.postDog(newDog),
       "You have created a dog.",
-      () => setAllDogs(prevState),
-      "There is no connnection to Server"
+      () => setAllDogs(prevState)
     );
   };
 
@@ -63,8 +60,7 @@ export function App() {
       () => setAllDogs(deletedDog),
       Requests.deleteDogRequest(dog),
       "You have deleted a dog",
-      () => setAllDogs(prevState),
-      "Failed to delete dog"
+      () => setAllDogs(prevState)
     );
   };
 
@@ -78,8 +74,7 @@ export function App() {
       () => setAllDogs(updateDogs),
       Requests.patchFavoriteForDog(dog),
       dog.isFavorite ? "You have liked a dog" : "You have un-liked a dog",
-      () => setAllDogs(prevState),
-      dog.isFavorite ? "Failed to un-like a dog" : "Failed to like a dog"
+      () => setAllDogs(prevState)
     );
   };
 
