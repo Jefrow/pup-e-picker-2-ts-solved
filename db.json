@@ -25,14 +25,14 @@
       "name": "Newton",
       "image": "/assets/blue-heeler.png",
       "description": "Planner maxime invoice ROI granular ouch Franc",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 19
     },
     {
       "name": "Bluey",
       "image": "/assets/blue-heeler.png",
       "description": "big ball of energy ",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 1729455875614
     }
   ]
