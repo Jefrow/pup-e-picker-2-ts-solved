@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "serve": "cross-env PORT=${PORT} json-server --watch db.json --port $PORT",
-    "serve:slow": "cross-env PORT=${PORT} json-server --watch db.json --delay 1000 --port $PORT",
+    "serve": "cross-env PORT=${PORT} json-server --host 0.0.0.0 --watch db.json --port $PORT",
+    "serve:slow": "cross-env PORT=${PORT} json-server --host 0.0.0.0 --watch db.json --delay 1000 --port $PORT",
     "seed": "node reseed-db.js",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
