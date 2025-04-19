@@ -1,12 +1,17 @@
-const express = require("express");
-const path = require("path");
-const { Low } = require("lowdb");
-const { JSONFile } = require("lowdb/node");
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import { Low } from "lowdb";
+import { JSONFile } from "lowdb/node";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const db = new Low(new JSONFile("db.json"));
+await db.read();
 
 app.use(express.json());
 
