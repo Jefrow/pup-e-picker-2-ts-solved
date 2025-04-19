@@ -36,7 +36,7 @@ app.get("/dogs/:id", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
-app.delete("/dogs/:id", async (req, res) => {
+app.delete("/dogs", async (req, res) => {
   const { id } = req.params;
   await db.read();
   db.data.dogs = db.data.dogs.filter((dog) => dog.id !== id);
