@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 const db = new Low(new JSONFile("db.json"));
 await db.read();
 data.db ||= { dogs: [] };
+await db.write();
 
 app.use(express.json());
 
