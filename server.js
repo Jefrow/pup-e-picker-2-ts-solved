@@ -10,9 +10,10 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const db = new Low(new JSONFile("db.json"));
+const dbFile = path.resolve(__dirname, "db.json");
+const adapter = new JSONFile(dbFile);
+const db = new Low(adapter, { dogs: [] });
 await db.read();
-data.db ||= { dogs: [] };
 await db.write();
 
 app.use(express.json());
@@ -31,7 +32,7 @@ app.post("/dogs", async (req, res) => {
   res.status(201).json(newDog);
 });
 
-app.get("*", (req, res) => {
+app.get("/dogs/:id", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
