@@ -26,7 +26,10 @@ app.get("/dogs", async (req, res) => {
 
 app.post("/dogs", async (req, res) => {
   await db.read();
-  const newDog = req.body;
+  const newDog = {
+    ...req.body,
+    id: Date.now().toString(),
+  };
   db.data.dogs.push(newDog);
   await db.write();
   res.status(201).json(newDog);
