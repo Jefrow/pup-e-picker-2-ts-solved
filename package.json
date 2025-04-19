@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "serve": "cross-env PORT=${PORT} json-server --host 0.0.0.0 --watch db.json --port $PORT",
+    "serve": "node server.js",
     "serve:slow": "cross-env PORT=${PORT} json-server --host 0.0.0.0 --watch db.json --delay 1000 --port $PORT",
     "seed": "node reseed-db.js",
     "build": "tsc && vite build",
@@ -15,8 +15,10 @@
   "dependencies": {
     "@faker-js/faker": "^8.0.2",
     "@types/lodash-es": "^4.17.7",
+    "express": "^5.1.0",
     "json-server": "^0.17.3",
     "lodash-es": "^4.17.21",
+    "lowdb": "^7.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
