@@ -12,11 +12,11 @@ const PORT = process.env.PORT || 3000;
 
 const db = new Low(new JSONFile("db.json"));
 await db.read();
+data.db ||= { dogs: [] };
 
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "dist")));
-
 app.get("/dogs", async (req, res) => {
   await db.read();
   res.json(db.data.dogs || []);
@@ -47,10 +47,10 @@ app.patch("/dogs/:id", async (req, res) => {
   const updateData = req.body;
   await db.read();
   const dog = db.data.dogs.find((dog) => dog.id === id);
-  if (!dig) {
+  if (!dog) {
     return res.status(404).json({ error: "Dog not found" });
   }
-  Object.assign(dog < updateData);
+  Object.assign(dog, updateData);
   await db.write();
   res.json(dog);
 });
