@@ -39,10 +39,11 @@ app.get("/dogs/:id", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
-app.delete("/dogs", async (req, res) => {
+app.delete("/dogs/:id", async (req, res) => {
   const { id } = req.params;
+  console.log("Recieved DELETE for ID:", id);
   await db.read();
-  db.data.dogs = db.data.dogs.filter((dog) => dog.id !== id);
+  db.data.dogs = db.data.dogs.filter((dog) => dog.id != id);
   await db.write();
   res.status(204).end();
 });
@@ -51,7 +52,7 @@ app.patch("/dogs/:id", async (req, res) => {
   const { id } = req.params;
   const updateData = req.body;
   await db.read();
-  const dog = db.data.dogs.find((dog) => dog.id === id);
+  const dog = db.data.dogs.find((dog) => dog.id == id);
   if (!dog) {
     return res.status(404).json({ error: "Dog not found" });
   }
