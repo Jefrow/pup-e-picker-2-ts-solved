@@ -19,9 +19,10 @@ export const Dogs = () => {
           }}
           key={dog.id}
           onTrashIconClick={() => {
-            deleteDog(dog).catch(() =>
-              toast.error("There is no connection with the server!")
-            );
+            console.log("Attempling to delete dog:", dog.id);
+            deleteDog(dog).catch(() => {
+              toast.error("There is no connection with the server!");
+            });
           }}
           onHeartClick={() => {
             updateDog({

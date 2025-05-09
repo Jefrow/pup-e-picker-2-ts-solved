@@ -1,8 +1,8 @@
 import { Dog } from "./types";
 import { toast } from "react-hot-toast";
 
-// export const baseUrl = "http://localhost:3000";
-export const baseUrl = "";
+export const baseUrl = "http://localhost:3000";
+// export const baseUrl = "" ;
 
 const getAllDogs = () => {
   return fetch(`${baseUrl}/dogs`).then((res) => {
@@ -34,6 +34,9 @@ const deleteDogRequest = (dog: Dog) => {
   }).then((res) => {
     if (!res.ok) {
       toast.error(`HTTP request failed with status ${res.status}!`);
+    }
+    if (res.status === 404) {
+      return null;
     }
     return res.json();
   });
