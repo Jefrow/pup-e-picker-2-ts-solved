@@ -20,7 +20,8 @@ export const Dogs = () => {
           key={dog.id}
           onTrashIconClick={() => {
             console.log("Attempling to delete dog:", dog.id);
-            deleteDog(dog).catch(() => {
+            deleteDog(dog).catch((err) => {
+              console.error("Delete failed:", err);
               toast.error("There is no connection with the server!");
             });
           }}
