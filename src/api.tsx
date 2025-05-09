@@ -1,7 +1,7 @@
 import { Dog } from "./types";
 import { toast } from "react-hot-toast";
 
-export const baseUrl = "";
+export const baseUrl = "https://pup-e-picker-2-ts-solved.onrender.com";
 
 const getAllDogs = () => {
   return fetch(`${baseUrl}/dogs`).then((res) => {
