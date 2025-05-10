@@ -34,10 +34,7 @@ const deleteDogRequest = (dog: Dog) => {
     if (!res.ok) {
       toast.error(`HTTP request failed with status ${res.status}!`);
     }
-    if (res.status === 404) {
-      return null;
-    }
-    return res.json();
+    return null;
   });
 };
 
