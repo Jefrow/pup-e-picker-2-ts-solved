@@ -19,12 +19,17 @@ const postDog = (dog: Omit<Dog, "id">) => {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((res) => {
-    if (!res.ok) {
-      toast.error(`HTTP request failed with status ${res.status}!`);
-    }
-    return res.json();
-  });
+  })
+    .then((res) => {
+      if (!res.ok) {
+        toast.error(`HTTP request failed with status ${res.status}!`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log("server Respondes with: ", data);
+      return data;
+    });
 };
 
 const deleteDogRequest = (dog: Dog) => {

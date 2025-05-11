@@ -46,6 +46,7 @@ export function App() {
     return handleRequest(
       () => {},
       Requests.postDog({ ...dog, isFavorite: false }).then((savedDog) => {
+        console.log("DogCreated:", savedDog);
         setAllDogs([...allDogs, savedDog]);
       }),
       "You have created a dog.",
