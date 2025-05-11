@@ -42,11 +42,12 @@ export function App() {
 
   const createDog = (dog: Omit<Dog, "id">): Promise<unknown> => {
     const prevState = [...allDogs];
-    const newDog: Dog = { ...dog, id: Date.now(), isFavorite: false };
 
     return handleRequest(
-      () => setAllDogs([...allDogs, newDog]),
-      Requests.postDog(newDog),
+      () => {},
+      Requests.postDog({ ...dog, isFavorite: false }).then((savedDog) => {
+        setAllDogs([...allDogs, savedDog]);
+      }),
       "You have created a dog.",
       () => setAllDogs(prevState)
     );
