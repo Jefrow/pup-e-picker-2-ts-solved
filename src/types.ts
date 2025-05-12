@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const dogSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   name: z.string(),
   image: z.string(),
   description: z.string(),
@@ -13,9 +13,9 @@ export type DogContextType = {
   activeTab: TactiveTab;
   isLoading: boolean;
   setActiveTab: (tab: TactiveTab) => void;
-  createDog: (dog: Omit<Dog, 'id'>) => Promise<unknown>;
+  createDog: (dog: Omit<Dog, "id">) => Promise<unknown>;
   deleteDog: (dog: Dog) => Promise<unknown>;
-  updateDog: (dog: Pick<Dog, 'id' | 'isFavorite'>) => Promise<unknown>;
+  updateDog: (dog: Pick<Dog, "id" | "isFavorite">) => Promise<unknown>;
   dogList: Record<TactiveTab, Dog[]>;
 };
 
