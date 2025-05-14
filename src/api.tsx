@@ -1,7 +1,7 @@
 import { Dog } from "./types";
 import { toast } from "react-hot-toast";
 
-export const baseUrl = "";
+export const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
 
 const getAllDogs = () => {
   return fetch(`${baseUrl}/dogs`).then((res) => {
